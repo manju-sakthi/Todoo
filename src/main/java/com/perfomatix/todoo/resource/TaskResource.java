@@ -1,5 +1,6 @@
 package com.perfomatix.todoo.resource;
 
+import com.perfomatix.todoo.dto.ResponseDTO;
 import com.perfomatix.todoo.dto.TaskDTO;
 import com.perfomatix.todoo.entity.Task;
 import com.perfomatix.todoo.service.TaskService;
@@ -17,9 +18,9 @@ public class TaskResource {
     private final TaskService taskService;
 
     @GetMapping(value = "/list/view")
-    public ResponseEntity<List<Object>> fetchAllTasks() {
+    public ResponseEntity<ResponseDTO> fetchAllTasks() {
         List<Object> listTask=taskService.fetchAllTasks();
-        return ResponseEntity.ok().body(listTask);
+        return ResponseEntity.ok(new ResponseDTO(HttpStatus.OK, "success", "data fetched successfully", listTask));
     }
     @PostMapping(value = "/list/create")
     public  ResponseEntity<TaskDTO> createTask(@RequestBody TaskDTO taskDTO){
